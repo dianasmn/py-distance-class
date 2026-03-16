@@ -1,4 +1,5 @@
-from typing import Union, Optional
+from __future__ import annotations
+from typing import Union
 
 Number = Union[int, float]
 
@@ -8,7 +9,7 @@ class Distance:
         self.km: Number = km
 
     @staticmethod
-    def _get_km(value: Union["Distance", Number]) -> Optional[Number]:
+    def _get_km(value: Union[Distance, Number]) -> Union[Number, None]:
         """Отримати значення km або None, якщо тип не підходить."""
         if isinstance(value, Distance):
             return value.km
@@ -26,13 +27,13 @@ class Distance:
 
     # ------- ADDITION -------
 
-    def __add__(self, other: Union["Distance", Number]) -> "Distance":
+    def __add__(self, other: Union[Distance, Number]) -> Distance:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return Distance(self.km + km)
 
-    def __iadd__(self, other: Union["Distance", Number]) -> "Distance":
+    def __iadd__(self, other: Union[Distance, Number]) -> Distance:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
@@ -41,54 +42,46 @@ class Distance:
 
     # ------- MULTIPLICATION -------
 
-    def __mul__(
-            self, other: Union["Distance", Number]
-    ) -> Optional["Distance"]:
-        if isinstance(other, Distance):
-            return None
-        if isinstance(other, (int, float)):
-            return Distance(self.km * other)
-        return NotImplemented
+    def __mul__(self, other: Number) -> Distance:
+        if not isinstance(other, (int, float)):
+            return NotImplemented
+        return Distance(self.km * other)
 
     # ------- TRUE DIVISION -------
 
-    def __truediv__(
-            self, other: Union["Distance", Number]
-    ) -> Optional["Distance"]:
-        if isinstance(other, Distance):
-            return None
-        if isinstance(other, (int, float)):
-            result = round(self.km / other, 2)
-            return Distance(result)
-        return NotImplemented
+    def __truediv__(self, other: Number) -> Distance:
+        if not isinstance(other, (int, float)):
+            return NotImplemented
+        result = round(self.km / other, 2)
+        return Distance(result)
 
     # ------- COMPARISON OPERATORS -------
 
-    def __lt__(self, other: Union["Distance", Number]) -> bool:
+    def __lt__(self, other: Union[Distance, Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km < km
 
-    def __gt__(self, other: Union["Distance", Number]) -> bool:
+    def __gt__(self, other: Union[Distance, Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km > km
 
-    def __eq__(self, other: Union["Distance", Number]) -> bool:
+    def __eq__(self, other: Union[Distance, Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km == km
 
-    def __le__(self, other: Union["Distance", Number]) -> bool:
+    def __le__(self, other: Union[Distance, Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km <= km
 
-    def __ge__(self, other: Union["Distance", Number]) -> bool:
+    def __ge__(self, other: Union[Distance, Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
