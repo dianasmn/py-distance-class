@@ -4,7 +4,7 @@ Number = Union[int, float]
 
 
 class Distance:
-    def init(self, km: Number) -> None:
+    def __init__(self, km: Number) -> None:
         self.km: Number = km
 
     @staticmethod
@@ -18,21 +18,21 @@ class Distance:
 
     # ------- STRING REPRESENTATION -------
 
-    def str(self) -> str:
+    def __str__(self) -> str:
         return f"Distance: {self.km} kilometers."
 
-    def repr(self) -> str:
+    def __repr__(self) -> str:
         return f"Distance(km={self.km})"
 
     # ------- ADDITION -------
 
-    def add(self, other: Union["Distance", Number]) -> "Distance":
+    def __add__(self, other: Union["Distance", Number]) -> "Distance":
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return Distance(self.km + km)
 
-    def iadd(self, other: Union["Distance", Number]) -> "Distance":
+    def __iadd__(self, other: Union["Distance", Number]) -> "Distance":
         km = self._get_km(other)
         if km is None:
             return NotImplemented
@@ -41,7 +41,7 @@ class Distance:
 
     # ------- MULTIPLICATION -------
 
-    def mul(self, other: Union["Distance", Number]) -> Optional["Distance"]:
+    def __mul__(self, other: Union["Distance", Number]) -> Optional["Distance"]:
         if isinstance(other, Distance):
             return None
         if isinstance(other, (int, float)):
@@ -50,7 +50,7 @@ class Distance:
 
     # ------- TRUE DIVISION -------
 
-    def truediv(
+    def __truediv__(
             self, other: Union["Distance", Number]
     ) -> Optional["Distance"]:
         if isinstance(other, Distance):
@@ -62,31 +62,31 @@ class Distance:
 
     # ------- COMPARISON OPERATORS -------
 
-    def lt(self, other: Union["Distance", Number]) -> bool:
+    def __lt__(self, other: Union["Distance", Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km < km
 
-    def gt(self, other: Union["Distance", Number]) -> bool:
+    def __gt__(self, other: Union["Distance", Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km > km
 
-    def eq(self, other: Union["Distance", Number]) -> bool:
+    def __eq__(self, other: Union["Distance", Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km == km
 
-    def le(self, other: Union["Distance", Number]) -> bool:
+    def __le__(self, other: Union["Distance", Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
         return self.km <= km
 
-    def ge(self, other: Union["Distance", Number]) -> bool:
+    def __ge__(self, other: Union["Distance", Number]) -> bool:
         km = self._get_km(other)
         if km is None:
             return NotImplemented
