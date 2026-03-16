@@ -41,7 +41,9 @@ class Distance:
 
     # ------- MULTIPLICATION -------
 
-    def __mul__(self, other: Union["Distance", Number]) -> Optional["Distance"]:
+    def __mul__(
+            self, other: Union["Distance", Number]
+    ) -> Optional["Distance"]:
         if isinstance(other, Distance):
             return None
         if isinstance(other, (int, float)):
