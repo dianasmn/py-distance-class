@@ -1,4 +1,3 @@
-from future import annotations
 from typing import Union, Optional
 
 Number = Union[int, float]
@@ -51,7 +50,9 @@ class Distance:
 
     # ------- TRUE DIVISION -------
 
-    def truediv(self, other: Union["Distance", Number]) -> Optional["Distance"]:
+    def truediv(
+            self, other: Union["Distance", Number]
+    ) -> Optional["Distance"]:
         if isinstance(other, Distance):
             return None
         if isinstance(other, (int, float)):
